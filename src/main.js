@@ -1,0 +1,16 @@
+import { createApp } from 'vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import './style.css'
+import './header-restore.css'
+import App from './App.vue'
+import Home from './views/Home.vue'
+import About from './views/About.vue'
+import Equipment from './views/Equipment.vue'
+import Services from './views/Services.vue'
+import ServiceDetail from './views/ServiceDetail.vue'
+import Pricing from './views/Pricing.vue'
+import ArtworkGuide from './views/ArtworkGuide.vue'
+import FileTransfer from './views/FileTransfer.vue'
+import Contact from './views/Contact.vue'
+const router=createRouter({history:createWebHistory(),routes:[{path:'/',component:Home},{path:'/about',component:About},{path:'/equipment',component:Equipment},{path:'/services',component:Services},{path:'/services/:slug',component:ServiceDetail},{path:'/pricing',component:Pricing},{path:'/artwork-guide',component:ArtworkGuide},{path:'/file-transfer',component:FileTransfer},{path:'/contact',component:Contact},{path:'/:pathMatch(.*)*',redirect:'/'}]})
+createApp(App).use(router).mount('#app')

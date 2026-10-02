@@ -1,0 +1,1 @@
+export const company={name:'印象行數位影印圖文輸出印刷中心',brand:'IMAGECOPY',tagline:'專業數位影印・印刷・輸出服務',description:'印象行提供影印、印刷、大圖輸出、裝訂及各式文件輸出服務，協助個人、學校與企業完成日常印製需求。',address:'700 臺南市中西區郡王里樹林街二段192號1樓',phone:'06-215-3556',email:'image.copy@msa.hinet.net',hours:'週一至週六 09:00–21:00；國定例假日 10:00–18:00；每週日公休'}
