@@ -141,4 +141,6 @@ body:after{content:'LINE';position:fixed;right:24px;bottom:28px;z-index:20;width
 
 .guide-back-to-top{position:fixed;right:24px;bottom:164px;z-index:20;width:46px;height:46px;border:0;background:rgba(45,53,57,.58);color:#fff;font-size:25px;line-height:1;cursor:pointer;transition:background-color .22s ease,transform .22s ease}.guide-back-to-top:hover{background:rgba(29,36,40,.82);color:#fff;transform:translateY(-4px)}@media(max-width:480px){.guide-back-to-top{right:16px;bottom:150px;width:42px;height:42px;font-size:23px}}
 
+.equipment-heading h2,.service-list-heading h2{margin:0;font-size:26px;font-weight:600;line-height:1.4}
+
 @media(min-width:801px){.header-inner>.logo{height:72px}.header-inner>.logo img{height:68px;width:154px}}
