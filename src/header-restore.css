@@ -14,6 +14,7 @@
 .floating-contacts{position:fixed!important;right:24px!important;bottom:28px!important;z-index:100!important;display:flex!important;flex-direction:column!important;gap:10px!important}
 .floating-contacts .line-float,.floating-contacts .email-float{position:relative!important;right:auto!important;bottom:auto!important;display:grid!important;place-items:center!important;width:58px!important;height:58px!important;flex:none!important;border-radius:50%!important;overflow:hidden!important}
 @media(max-width:800px){.header-inner nav a:first-of-type,.header-inner nav a:first-of-type:hover,.header-inner nav a.mobile-nav-contact,.header-inner nav a.mobile-nav-contact:hover{color:var(--ink)!important}}
+@media(max-width:800px){.site-header{height:86px!important;overflow:visible!important;border-bottom:0!important;background:transparent!important;box-shadow:none!important}.header-inner{height:70px!important;position:relative!important;z-index:1!important;background:#fff!important}.site-header:after{content:'';position:absolute;z-index:0;left:-7%;bottom:0;width:114%;height:28px;background:#fff;border-radius:0 0 50% 50% / 0 0 100% 100%;box-shadow:0 8px 14px rgba(29,36,40,.06)}}
 .floating-contacts .line-float{background:#06c755!important;color:#fff!important;font:bold 16px Arial,sans-serif!important}
 .floating-contacts .line-float span{display:block!important;line-height:1!important}
 .floating-contacts .email-float{background:#233a66!important;color:#fff!important;font-size:26px!important;text-decoration:none!important}
