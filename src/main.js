@@ -12,5 +12,5 @@ import Pricing from './views/Pricing.vue'
 import ArtworkGuide from './views/ArtworkGuide.vue'
 import FileTransfer from './views/FileTransfer.vue'
 import Contact from './views/Contact.vue'
-const router=createRouter({history:createWebHistory(),routes:[{path:'/',component:Home},{path:'/about',component:About},{path:'/equipment',component:Equipment},{path:'/services',component:Services},{path:'/services/:slug',component:ServiceDetail},{path:'/pricing',component:Pricing},{path:'/artwork-guide',component:ArtworkGuide},{path:'/file-transfer',component:FileTransfer},{path:'/contact',component:Contact},{path:'/:pathMatch(.*)*',redirect:'/'}]})
+const router=createRouter({history:createWebHistory(import.meta.env.BASE_URL),routes:[{path:'/',component:Home},{path:'/about',component:About},{path:'/equipment',component:Equipment},{path:'/services',component:Services},{path:'/services/:slug',component:ServiceDetail},{path:'/pricing',component:Pricing},{path:'/artwork-guide',component:ArtworkGuide},{path:'/file-transfer',component:FileTransfer},{path:'/contact',component:Contact},{path:'/:pathMatch(.*)*',redirect:'/'}]})
 createApp(App).use(router).mount('#app')
