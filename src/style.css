@@ -118,9 +118,9 @@ body:after{content:'LINE';position:fixed;right:24px;bottom:28px;z-index:20;width
 .pricing-tools{display:flex;align-items:flex-end;gap:14px;padding:20px 0 28px;border-bottom:1px solid #e6e2db;margin-bottom:28px;position:sticky;top:0;background:#fff;z-index:4}.pricing-tools label{display:flex;flex-direction:column;gap:7px;color:#17212b;font-size:14px;font-weight:600}.pricing-search{flex:1}.pricing-tools input,.pricing-tools select{height:44px;border:1px solid #cbd1d5;border-radius:4px;background:#fff;padding:0 13px;color:#17212b;font:inherit;font-weight:400;outline:none}.pricing-tools input:focus,.pricing-tools select:focus{border-color:#d51f26;box-shadow:0 0 0 3px rgba(213,31,38,.12)}.pricing-filter{width:220px}.pricing-clear{height:44px;border:0;border-radius:4px;background:#17212b;color:#fff;padding:0 16px;font:inherit;cursor:pointer}.pricing-clear:hover{background:#d51f26}.pricing-empty{padding:36px 0;color:#66717b}.price-section{scroll-margin-top:95px}@media(max-width:700px){.pricing-tools{position:static;flex-wrap:wrap}.pricing-search{flex-basis:100%}.pricing-filter{flex:1;width:auto}.pricing-clear{flex:0 0 auto}}
 .about-feature{background-image:url('/images/banner/inprint-banner.png')}
 
-/* Keep the horizontal banner visually compact by cropping excess artwork whitespace. */
-.banner-hero{height:clamp(220px,30vw,380px);min-height:0;overflow:hidden}
-.banner-image{width:100%;height:100%;object-fit:cover;object-position:center}
+/* Preserve the full desktop banner instead of cropping its artwork. */
+.banner-hero{height:auto;min-height:0;padding:0;overflow:hidden}
+.banner-image{display:block;width:100%;height:auto;object-fit:initial;object-position:center}
 @media(max-width:800px){.banner-hero{height:clamp(365px,114vw,512px)}.banner-image{object-fit:cover}}
 
 .header-contact:hover{background:transparent!important;color:var(--ink)!important;border-color:#8f9b96;box-shadow:none}.header-contact span{display:inline-block!important;color:var(--orange)!important;opacity:1;will-change:transform,opacity}.header-contact:hover span{color:var(--orange)!important;animation:header-arrow-nudge .42s ease both}@keyframes header-arrow-nudge{0%{opacity:1;transform:translateX(0)}35%{opacity:.7;transform:translateX(-4px)}100%{opacity:1;transform:translateX(5px)}}
