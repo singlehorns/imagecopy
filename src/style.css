@@ -146,3 +146,14 @@ body:after{content:'LINE';position:fixed;right:24px;bottom:28px;z-index:20;width
 .equipment-heading h2,.service-list-heading h2{margin:0;font-size:26px;font-weight:600;line-height:1.4}
 
 @media(min-width:801px){.header-inner>.logo{height:72px}.header-inner>.logo img{height:68px;width:154px}}
+
+/* About feature marquee */
+.about-points{position:relative;display:block;overflow:hidden;padding:10px 0;color:#d51f26}
+.about-points:before,.about-points:after{content:'';position:absolute;top:0;bottom:0;width:70px;z-index:1;pointer-events:none}
+.about-points:before{left:0;background:linear-gradient(90deg,#fff,transparent)}
+.about-points:after{right:0;background:linear-gradient(270deg,#fff,transparent)}
+.about-points-track{display:flex;width:max-content;gap:70px;animation:about-marquee 48s linear infinite}
+.about-points article{display:flex;align-items:center;gap:10px;flex:0 0 auto;white-space:nowrap}
+.about-points:hover .about-points-track,.about-points:focus .about-points-track{animation-play-state:paused}
+@keyframes about-marquee{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 35px))}}
+@media(max-width:800px){.about-points-track{gap:45px;animation-duration:38s}.about-points:before,.about-points:after{width:35px}}
