@@ -18,7 +18,7 @@ const aboutPoints = [
     </div>
     <div class="about-main">
       <p class="about-lead">自1983年印象行創業以來，我們一直秉持著專業、熱忱服務態度的經營理念而努力不懈，憑著豐富的專業知識及融合眾多的市場需求，從傳統粗糙的意識型態，引進全新數位化影印設備及專業分工模式，創造高品質影印專業服務。</p>
-      <div class="about-rule">服務、效率、創新、品質</div>
+      <div class="about-rule" aria-label="服務、效率、創新、品質"><div class="about-rule-track"><span>服務、效率、創新、品質</span><span>服務、效率、創新、品質</span></div></div>
       <div class="about-points" aria-label="印象行特色" tabindex="0">
         <div class="about-points-track">
           <article v-for="(point, index) in [...aboutPoints, ...aboutPoints]" :key="`${point[0]}-${index}`"><span>◎</span><p><b>{{ point[0] }}</b>：{{ point[1] }}</p></article>
