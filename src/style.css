@@ -278,3 +278,10 @@ nav{font-size:20px;font-weight:600}
 .about-points article{display:grid!important;grid-template-columns:45px 1fr!important;gap:5px!important;white-space:normal!important}
 
 @media(max-width:800px){.header-inner nav.show{z-index:10!important}}
+
+/* Header link underline expands outward from the center. */
+@media(min-width:801px){
+  .header-inner nav a{position:relative}
+  .header-inner nav a::after{content:'';position:absolute;left:12px;right:12px;bottom:4px;height:2px;background:var(--orange);transform:scaleX(0);transform-origin:center;transition:transform .28s cubic-bezier(.22,.61,.36,1)}
+  .header-inner nav a:hover::after,.header-inner nav a.router-link-active::after{transform:scaleX(1)}
+}
