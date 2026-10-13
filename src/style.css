@@ -286,6 +286,6 @@ nav{font-size:20px;font-weight:600}
   .header-inner nav a:hover::after,.header-inner nav a.router-link-active::after{transform:scaleX(1)!important}
   .header-inner nav a{background-image:linear-gradient(var(--orange),var(--orange))!important;background-repeat:no-repeat!important;background-position:center calc(100% - 4px)!important;background-size:0 2px!important;transition:background-size .28s cubic-bezier(.22,.61,.36,1)!important}
   .header-inner nav a:hover,.header-inner nav a.router-link-active{background-size:calc(100% - 24px) 2px!important}
-  .header-inner nav a.router-link-active{border-bottom:2px solid var(--orange)!important}
-  .header-inner nav a:hover{border-bottom-color:var(--orange)!important}
+  .header-inner nav a.router-link-active{border-bottom:0!important}
+  .header-inner nav a::after{transition:transform .42s cubic-bezier(.22,.61,.36,1)!important}
 }
