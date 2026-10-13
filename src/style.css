@@ -288,4 +288,6 @@ nav{font-size:20px;font-weight:600}
   .header-inner nav a:hover,.header-inner nav a.router-link-active{background-size:calc(100% - 24px) 2px!important}
   .header-inner nav a.router-link-active{border-bottom:0!important}
   .header-inner nav a::after{transition:transform .42s cubic-bezier(.22,.61,.36,1)!important}
+  .header-inner nav a::before{display:block!important;content:''!important;position:absolute!important;left:50%!important;right:auto!important;bottom:4px!important;width:calc(100% - 24px)!important;height:2px!important;background:var(--orange)!important;transform:translateX(-50%) scaleX(0)!important;transform-origin:center!important;transition:transform .42s cubic-bezier(.22,.61,.36,1)!important}
+  .header-inner nav a:hover::before,.header-inner nav a.router-link-active::before{transform:translateX(-50%) scaleX(1)!important}
 }
