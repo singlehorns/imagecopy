@@ -1,5 +1,24 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+
+const aboutPage = ref(null)
+let entranceObserver
+onMounted(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return
+  entranceObserver = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (!isIntersecting) return
+      target.classList.remove('entrance-pending')
+      entranceObserver.unobserve(target)
+    })
+  }, { threshold: 0, rootMargin: '0px 0px -24px 0px' })
+  aboutPage.value.querySelectorAll('.about-sidebar, .about-main').forEach((element) => {
+    element.classList.add('entrance-pending')
+    entranceObserver.observe(element)
+  })
+})
+onBeforeUnmount(() => entranceObserver?.disconnect())
 
 const aboutPoints = [
   ['專業級設備', '採用世界知名品牌 HORIZON 專業電腦控制的製冊設備，為您的書冊成品作精緻加工。'],
@@ -10,7 +29,7 @@ const aboutPoints = [
 ]
 </script>
 <template>
-  <section class="about-page container">
+  <section ref="aboutPage" class="about-page container">
     <div class="about-sidebar">
       <div class="about-logo-card"><img src="/images/branding/since1983.jpg" alt="印象行 Since 1983"><p>成立於1983年，創始店址位於建興國中旁，歷經幾次遷徙，現於樹林街二段落腳。</p></div>
       <RouterLink to="/equipment" class="about-side-link">查看專業設備 <span>→</span></RouterLink>
@@ -29,5 +48,10 @@ const aboutPoints = [
 </template>
 
 <style scoped>
+.about-page{overflow-x:clip}
+.about-sidebar,.about-main{min-width:0;opacity:1;transform:translateX(0);transition:opacity .8s ease,transform .8s cubic-bezier(.22,.61,.36,1)}
+.about-sidebar.entrance-pending{opacity:0;transform:translateX(-40px)}
+.about-main.entrance-pending{opacity:0;transform:translateX(40px)}
+@media(prefers-reduced-motion:reduce){.about-sidebar,.about-main{opacity:1!important;transform:none!important;transition:none!important}}
 .about-side-link span{transition:transform .25s ease,color .25s ease}.about-side-link:hover span{color:#c94e26;transform:translateX(7px)}
 </style>

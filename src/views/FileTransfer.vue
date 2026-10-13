@@ -1,5 +1,27 @@
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+const transferPage = ref(null)
+let observer
+let frame
+onMounted(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return
+  const elements = transferPage.value.querySelectorAll('.transfer-notes > h2, .transfer-notes li, .transfer-reminder, .ftp-steps > h2, .ftp-steps article')
+  observer = new IntersectionObserver(entries => {
+    entries.filter(entry => entry.isIntersecting).forEach(({ target }, index) => {
+      target.style.setProperty('--entry-delay', `${Math.min(index, 4) * 90}ms`)
+      target.classList.remove('transfer-pending')
+      observer.unobserve(target)
+    })
+  }, { threshold: 0, rootMargin: '0px 0px -24px 0px' })
+  elements.forEach(element => element.classList.add('transfer-pending'))
+  frame = requestAnimationFrame(() => {
+    frame = requestAnimationFrame(() => elements.forEach(element => observer.observe(element)))
+  })
+})
+onBeforeUnmount(() => { cancelAnimationFrame(frame); observer?.disconnect() })
+</script>
 <template>
-  <section class="container transfer-page">
+  <section ref="transferPage" class="container transfer-page">
     <header class="transfer-heading"><h1>上傳檔案</h1><p>請依照以下 FTP 傳檔步驟操作；完成傳輸後，請來電或傳真告知。</p></header>
     <section class="ftp-intro"><div><h2>FTP 傳檔</h2><p>請先安裝 FileZilla，再依照下方步驟連線並上傳檔案。</p></div><a class="btn" href="http://www.imagecopy.com.tw/FTP連線程式.rar" target="_blank" rel="noopener">下載 FileZilla <span>→</span></a></section>
     <section class="transfer-notes" aria-labelledby="transfer-notes-title"><h2 id="transfer-notes-title">傳檔注意事項</h2><ol><li>FTP 傳檔無法上傳整個資料夾，請壓縮後再傳，或將檔案複製後貼上。</li><li>PDF 檔可跨平台使用，建議將 Word 與 Excel 檔案轉存為 PDF 格式，避免不同平台造成錯誤。</li><li>使用 MAC 電腦系統時，請務必將圖檔轉換為 PC 格式，避免上傳後無法讀取。</li><li>顏色以 CMYK 為依據，不可用螢幕顏色要求印刷顏色；螢幕顏色不一定準確。</li><li>文字請全部轉成曲線或建立外框；如使用特殊字型，請一併附上字型。</li><li>上傳前請先自行備份檔案，本店不負責上傳檔案損壞或遺失的風險。</li><li>建議使用 PDF、Word、CorelDraw、Illustrator、Photoshop 等檔案格式。</li></ol><p class="transfer-reminder">FTP 傳檔作業完成後，請務必電話或傳真告知，以避免檔案疏失錯漏。</p></section>
@@ -9,5 +31,11 @@
 </template>
 
 <style scoped>
+.transfer-page{overflow-x:clip}
+.transfer-notes > h2,.transfer-notes li,.transfer-reminder,.ftp-steps > h2,.ftp-steps article{opacity:1;transform:translate(0,0);transition:opacity .7s ease var(--entry-delay,0ms),transform .8s cubic-bezier(.22,.61,.36,1) var(--entry-delay,0ms)}
+.transfer-notes > h2.transfer-pending,.transfer-notes li.transfer-pending{opacity:0;transform:translateX(-36px)}
+.transfer-notes li:nth-child(even).transfer-pending,.transfer-reminder.transfer-pending{opacity:0;transform:translateX(36px)}
+.ftp-steps > h2.transfer-pending,.ftp-steps article.transfer-pending{opacity:0;transform:translateY(32px)}
+@media(prefers-reduced-motion:reduce){.transfer-notes > h2,.transfer-notes li,.transfer-reminder,.ftp-steps > h2,.ftp-steps article{opacity:1!important;transform:none!important;transition:none!important}}
 .transfer-page{padding-top:68px;padding-bottom:100px}.transfer-heading{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:45px}.transfer-heading h1{margin:0;font-size:42px}.transfer-heading p{max-width:520px;margin:0;color:var(--muted)}.ftp-intro{display:flex;justify-content:space-between;align-items:center;gap:30px;padding:28px 30px;border-top:5px solid #d51f26;background:#f7f7f4}.ftp-intro h2,.ftp-intro p{margin:0}.ftp-intro h2{font-size:25px}.ftp-intro p{color:var(--muted);margin-top:5px}.ftp-intro .btn{flex:0 0 auto;transition:background-color .22s ease,border-color .22s ease}.ftp-intro .btn:hover{background:#c94e26;border-color:#c94e26}.transfer-notes,.ftp-steps,.email-checklist{margin-top:55px}.transfer-notes h2,.ftp-steps>h2,.email-checklist h2{font-size:26px;margin:0 0 20px}.transfer-notes ol,.email-checklist ol{display:grid;gap:8px;margin:0;padding-left:24px;color:var(--muted)}.transfer-notes li::marker,.email-checklist li::marker{color:#d51f26;font-weight:700}.transfer-reminder{margin:22px 0 0;padding:15px 18px;background:#fff3f3;color:#a61c22;font-weight:700}.ftp-steps{display:grid;gap:38px}.ftp-steps>h2{margin-bottom:0}.ftp-steps article{border-top:1px solid var(--line);padding-top:22px}.step-copy{display:grid;grid-template-columns:50px 1fr;column-gap:16px;align-items:start;margin-bottom:20px}.step-copy span{grid-row:span 2;color:#d51f26;font:30px Oswald}.step-copy h3{margin:0;font-size:21px}.step-copy p{grid-column:2;margin:5px 0 0;color:var(--muted)}.ftp-steps img{display:block;width:100%;max-width:812px;margin:auto;border:1px solid var(--line)}.email-checklist{border-top:5px solid #d51f26;padding:30px;background:#fff7f7}.email-checklist p{margin:20px 0 0;color:#a61c22;font-weight:700}@media(max-width:700px){.transfer-page{padding-top:48px;padding-bottom:70px}.transfer-heading,.ftp-intro{display:block}.transfer-heading h1{font-size:36px}.transfer-heading p{margin-top:10px}.ftp-intro .btn{margin-top:20px}.transfer-notes,.ftp-steps,.email-checklist{margin-top:42px}.ftp-intro{padding:24px}.ftp-steps img{width:100%}}
 </style>

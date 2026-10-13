@@ -1,5 +1,27 @@
 <script setup>
 import ServiceCategoryIcon from '../components/ServiceCategoryIcon.vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+
+const servicesPage = ref(null)
+let entranceObserver
+let entranceFrame
+onMounted(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return
+  const elements = servicesPage.value.querySelectorAll('.principle-list article, .service-feature')
+  entranceObserver = new IntersectionObserver(entries => {
+    const visible = entries.filter(entry => entry.isIntersecting)
+    visible.forEach(({ target }, index) => {
+      target.style.setProperty('--entrance-delay', `${Math.min(index, 4) * 110}ms`)
+      target.classList.remove('entrance-pending')
+      entranceObserver.unobserve(target)
+    })
+  }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' })
+  elements.forEach(element => element.classList.add('entrance-pending'))
+  entranceFrame = requestAnimationFrame(() => {
+    entranceFrame = requestAnimationFrame(() => elements.forEach(element => entranceObserver.observe(element)))
+  })
+})
+onBeforeUnmount(() => { cancelAnimationFrame(entranceFrame); entranceObserver?.disconnect() })
 const principles = [
   ['專業級設備', '採用世界知名品牌 HORIZON 專業電腦控制的製冊設備，為您的書冊成品作精緻加工。'],
   ['數位化高品質輸出', '引進 RICOH 影印機、Konica Minolta 彩色影印機、Konica Minolta 高階數位高速影印機、Canon Oce 專業輸出設備及各式高階數位化影印設備，大幅提升影印品質。'],
@@ -18,12 +40,19 @@ const serviceItems = [
 ]
 </script>
 <template>
-  <section class="container services-page">
+  <section ref="servicesPage" class="container services-page">
     <section class="service-principles" aria-labelledby="principles-title"><h2 id="principles-title">專業、服務、效率、創新、品質</h2><div class="principle-list"><article v-for="principle in principles" :key="principle[0]"><h3>{{principle[0]}}</h3><p>{{principle[1]}}</p></article></div></section>
     <section class="service-list" aria-labelledby="service-list-title"><div class="service-list-heading"><h2 id="service-list-title">我們提供的服務</h2></div><div class="service-detail-grid"><article v-for="(item,index) in serviceItems" :key="item.title" class="service-feature" :class="'tone-'+(index%8)"><span class="feature-icon"><ServiceCategoryIcon :type="item.icon" :label="item.title" /></span><div><h3>{{item.title}}</h3><p>{{item.desc}}</p></div></article></div></section>
   </section>
 </template>
 <style scoped>
+.services-page{overflow-x:clip}
+.principle-list article,.service-feature{opacity:1;transition:opacity .7s ease var(--entrance-delay,0ms),transform .95s cubic-bezier(.22,.61,.36,1) var(--entrance-delay,0ms)}
+.principle-list article{transform:translateX(0)}
+.principle-list article.entrance-pending{opacity:0;transform:translateX(44px)}
+.service-feature{transform-origin:center top;transform:perspective(1200px) rotateX(0deg)}
+.service-feature.entrance-pending{opacity:0;transform:perspective(1200px) rotateX(-65deg)}
+@media(prefers-reduced-motion:reduce){.principle-list article,.service-feature{opacity:1!important;transform:none!important;transition:none!important}}
 .service-principles { margin: 4px 0 52px; padding: 0; background: transparent; color: #1d2428; border-left: 0; }
 .service-principles h2 { margin: 0 0 14px; font-size: 30px; color: #1d2428; }
 .service-principles .principle-list { display: grid; gap: 0; margin: 0; }
